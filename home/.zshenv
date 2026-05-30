@@ -18,6 +18,10 @@ export ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 # less history
 export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 
+# Extra terminfo search path (e.g. xterm-ghostty installed per-server via tic).
+# Trailing colon = then fall back to the compiled-in system terminfo dirs.
+export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
+
 # Prevent /etc/zsh/zshrc from calling bare compinit (which would write
 # $ZDOTDIR/.zcompdump). We call compinit ourselves in .zshrc with the XDG path.
 skip_global_compinit=1

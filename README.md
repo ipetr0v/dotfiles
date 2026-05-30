@@ -92,6 +92,34 @@ These files are gitignored — create per machine as needed:
 | `~/.gitconfig` | git identity (different for personal/work machines) |
 | `~/.secrets` | API tokens, etc. — sourced by both shells if present |
 
+## Terminal: Ghostty
+
+[Ghostty](https://ghostty.org) is the desktop terminal emulator
+(on Windows, WSL runs under Windows Terminal instead).
+
+**Ubuntu / Debian**
+
+Not in the default apt repos — install via the community `.deb`
+([mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ubuntu)), or see the
+[install guide](https://ghostty.org/docs/install) for other options.
+
+Ghostty uses its own `xterm-ghostty` terminfo — present locally, but **not** on most
+remote servers, so SSH sessions can show a garbled prompt. Copy the entry to a server
+once (the dotfiles already add `~/.local/share/terminfo` to the terminfo search path):
+
+```bash
+infocmp -x xterm-ghostty | ssh user@host -- tic -x -o '$HOME/.local/share/terminfo' -
+```
+
+<details>
+<summary><b>macOS</b></summary>
+
+```bash
+brew install --cask ghostty
+```
+
+</details>
+
 ## Layout
 
 Everything that maps into `$HOME` lives under `home/` (the single stow package).
@@ -108,5 +136,6 @@ Repo-meta (`README`, `.git`) stays at the root, so there's nothing to ignore.
     └── .config/
         ├── zsh/               # .zshrc, plugins.zsh, aliases.zsh, zsh_plugins.txt
         ├── bat/config
+        ├── python/startup.py
         └── starship.toml
 ```

@@ -26,6 +26,10 @@ export VISUAL=vim
 export LESS='-FRX'    # quit if one screen, allow ANSI colors, keep output on exit
 export MANWIDTH=80    # cap man-page width on wide terminals
 
+# Extra terminfo search path (e.g. xterm-ghostty installed per-server via tic).
+# Trailing colon = then fall back to the compiled-in system terminfo dirs.
+export TERMINFO_DIRS="${XDG_DATA_HOME:-$HOME/.local/share}/terminfo:"
+
 # Homebrew (Mac only).
 for _brew_path in /opt/homebrew/bin/brew /usr/local/bin/brew; do
     [ -x "$_brew_path" ] && eval "$($_brew_path shellenv)" && break
