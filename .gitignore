@@ -1,0 +1,9 @@
+# Machine-specific overrides (live inside stowed dirs, never tracked)
+*.local
+
+# Secrets
+.secrets
+
+# Zsh compiled/cache artifacts that can appear in stowed dirs
+.zcompdump*
+*.zwc
