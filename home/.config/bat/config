@@ -1,0 +1,8 @@
+# bat configuration — https://github.com/sharkdp/bat
+
+# Plain style: no line numbers, no git gutter, no header.
+# Makes copy-pasting file contents clean.
+--style=plain
+
+# Never page — print the whole file to stdout instead of opening a less-style pager.
+--paging=never
