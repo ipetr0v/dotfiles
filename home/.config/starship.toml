@@ -33,6 +33,15 @@ disabled = true
 [gcloud]
 disabled = true
 
+# Drop the " in " connector from username/hostname. It's there by default because
+# they normally precede the directory ("user in host in ~/path"), but we moved the
+# directory to the front — so the connector would dangle as "...host in on  main".
+[username]
+format = '· [$user]($style)@'
+
+[hostname]
+format = '[$hostname]($style) '   # drop the default ssh_symbol; the "@" already separates
+
 # Minimal profile for the collapsed (transient) prompt — just the character, so it
 # keeps Starship's green/red exit-status coloring. Wired up in .zshrc.
 [profiles]
