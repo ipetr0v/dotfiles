@@ -84,6 +84,17 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # Starship prompt — overrides the theme when installed.
 command -v starship >/dev/null && eval "$(starship init zsh)"
 
+# zsh-transient-prompt captures $PROMPT when it loads (in the bundle, before
+# Starship sets it), so its saved "full prompt" would wrongly be the default
+# %m%#. Re-point it at Starship's prompt here, now that init has run.
+if (( ${+TRANSIENT_PROMPT_PROMPT} )); then
+    TRANSIENT_PROMPT_PROMPT=$PROMPT
+    TRANSIENT_PROMPT_RPROMPT=$RPROMPT
+    # Collapsed prompt = Starship's character module (green/red by exit status),
+    # via a small "transient" profile. Reuses $PROMPT's already-wired --status args.
+    TRANSIENT_PROMPT_TRANSIENT_PROMPT="${PROMPT// prompt / prompt --profile transient }"
+fi
+
 # Machine-specific config (not tracked in dotfiles).
 [ -f "$ZDOTDIR/.zshrc.local" ] && source "$ZDOTDIR/.zshrc.local"
 [ -f ~/.secrets ] && source ~/.secrets

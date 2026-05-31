@@ -1,8 +1,18 @@
 # Starship prompt — https://starship.rs/config/
 # Modules use sensible defaults out of the box; tweak below as needed.
 
-# Blank line before each new prompt.
-add_newline = true
+# Put the directory first; "$all" appends every other module in default order —
+# including the line break before $character that gives the two-line prompt.
+# The blank line before the prompt is a LITERAL newline (the empty first line of
+# this multi-line string), NOT $line_break — using $line_break explicitly would
+# pull it out of "$all" and collapse the prompt onto one line.
+format = """
+
+$directory$all"""
+
+# Off globally so the blank line (above, live prompt only) isn't inherited by the
+# collapsed transient prompts.
+add_newline = false
 
 # Wait up to 1s for slow commands (e.g. git status in huge repos) before skipping.
 command_timeout = 1000
@@ -17,3 +27,13 @@ scan_timeout = 50
 # (or drop the always-on venv in favour of pipx) if you want version-in-projects.
 [python]
 disabled = true
+
+# Hide the gcloud module — it shows the active GCP account (your email) on the
+# corp server. Disable rather than reformat since we don't want it at all.
+[gcloud]
+disabled = true
+
+# Minimal profile for the collapsed (transient) prompt — just the character, so it
+# keeps Starship's green/red exit-status coloring. Wired up in .zshrc.
+[profiles]
+transient = '$character'

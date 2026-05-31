@@ -16,5 +16,9 @@ zsh-users/zsh-autosuggestions
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 
+# Transient prompt — collapse each submitted prompt to a short form.
+# Load after the widget-wrapping plugins above so it doesn't fight them.
+olets/zsh-transient-prompt
+
 # Theme
 ohmyzsh/ohmyzsh path:themes/robbyrussell.zsh-theme

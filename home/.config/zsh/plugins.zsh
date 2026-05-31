@@ -13,10 +13,16 @@ zsh_plugins_txt="$ZDOTDIR/zsh_plugins.txt"
 zsh_plugins_static="$XDG_CACHE_HOME/zsh/plugins.zsh"
 mkdir -p "$(dirname "$zsh_plugins_static")"
 
-# Regenerate bundle if missing or stale
+# Regenerate bundle if missing or stale.
+# Write to a temp file then move atomically — if antidote has to clone a new
+# plugin mid-generation, a partial/raced write can't corrupt the live bundle.
 if [[ ! -f "$zsh_plugins_static" ]] || [[ "$zsh_plugins_txt" -nt "$zsh_plugins_static" ]]; then
     source "$antidote_home/antidote.zsh"
-    antidote bundle < "$zsh_plugins_txt" > "$zsh_plugins_static"
+    if antidote bundle < "$zsh_plugins_txt" > "$zsh_plugins_static.$$.tmp"; then
+        mv "$zsh_plugins_static.$$.tmp" "$zsh_plugins_static"
+    else
+        rm -f "$zsh_plugins_static.$$.tmp"
+    fi
 fi
 
 source "$zsh_plugins_static"
