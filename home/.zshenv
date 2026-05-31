@@ -22,6 +22,12 @@ export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 # Trailing colon = then fall back to the compiled-in system terminfo dirs.
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
 
+# Prepend user-installed binaries (pipx, pip --user, etc.) to PATH.
+# zsh doesn't read ~/.profile, so we add it here. typeset -U keeps PATH unique
+# even though .zshenv runs for every shell (nested shells, scripts).
+typeset -U path PATH
+path=("$HOME/.local/bin" $path)
+
 # Prevent /etc/zsh/zshrc from calling bare compinit (which would write
 # $ZDOTDIR/.zcompdump). We call compinit ourselves in .zshrc with the XDG path.
 skip_global_compinit=1
