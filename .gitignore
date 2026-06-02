@@ -6,4 +6,6 @@
 
 # Zsh compiled/cache artifacts that can appear in stowed dirs
 .zcompdump*
+.zcompdumps/
 *.zwc
+

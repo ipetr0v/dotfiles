@@ -18,6 +18,15 @@ export ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 # less history
 export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 
+# GPG keyring
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
+# Docker config (avoids ~/.docker/)
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
+# Python REPL history (avoids ~/.python_history)
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
+
 # Extra terminfo search path (e.g. xterm-ghostty installed per-server via tic).
 # Trailing colon = then fall back to the compiled-in system terminfo dirs.
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
@@ -31,3 +40,8 @@ path=("$HOME/.local/bin" $path)
 # Prevent /etc/zsh/zshrc from calling bare compinit (which would write
 # $ZDOTDIR/.zcompdump). We call compinit ourselves in .zshrc with the XDG path.
 skip_global_compinit=1
+
+# Nix package manager (uses XDG state dir when use-xdg-base-directories = true).
+_nix_sh="$XDG_STATE_HOME/nix/profile/etc/profile.d/nix.sh"
+[ -e "$_nix_sh" ] && . "$_nix_sh"
+unset _nix_sh

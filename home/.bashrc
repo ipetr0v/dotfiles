@@ -6,6 +6,12 @@ case $- in
       *) return;;
 esac
 
+# XDG base dirs (bash has no .zshenv equivalent, so set them here).
+export XDG_CONFIG_HOME=~/.config
+export XDG_DATA_HOME=~/.local/share
+export XDG_CACHE_HOME=~/.cache
+export XDG_STATE_HOME=~/.local/state
+
 # History
 HISTSIZE=50000
 HISTFILESIZE=50000
@@ -28,7 +34,21 @@ export MANWIDTH=80    # cap man-page width on wide terminals
 
 # Extra terminfo search path (e.g. xterm-ghostty installed per-server via tic).
 # Trailing colon = then fall back to the compiled-in system terminfo dirs.
-export TERMINFO_DIRS="${XDG_DATA_HOME:-$HOME/.local/share}/terminfo:"
+export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
+
+# GPG keyring
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
+# Docker config (avoids ~/.docker/)
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
+# Python REPL history (avoids ~/.python_history)
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
+
+# Nix package manager (uses XDG state dir when use-xdg-base-directories = true).
+_nix_sh="$XDG_STATE_HOME/nix/profile/etc/profile.d/nix.sh"
+[ -e "$_nix_sh" ] && . "$_nix_sh"
+unset _nix_sh
 
 # Prepend user-installed binaries (pipx, pip --user, etc.) to PATH.
 # ~/.profile already does this for login shells on Debian, but only if the dir
@@ -144,7 +164,7 @@ fi
 # Activate the default user virtualenv if present (created once; see dotfiles README).
 # VIRTUAL_ENV_DISABLE_PROMPT stops activate from prefixing "(venv)" — Starship shows it instead.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-venv_activate="${XDG_DATA_HOME:-$HOME/.local/share}/venv/bin/activate"
+venv_activate="$XDG_DATA_HOME/venv/bin/activate"
 [ -f "$venv_activate" ] && . "$venv_activate"
 unset venv_activate
 
@@ -154,3 +174,8 @@ command -v starship >/dev/null && eval "$(starship init bash)"
 # Machine-specific config (not tracked in dotfiles).
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
 [ -f ~/.secrets ] && source ~/.secrets
+
+# direnv — auto-load .envrc when cd'ing into a project (e.g. Nix flakes).
+# Must be last so it hooks into the final prompt.
+command -v direnv >/dev/null && eval "$(direnv hook bash)"
+

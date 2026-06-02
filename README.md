@@ -135,6 +135,7 @@ Repo-meta (`README`, `.git`) stays at the root, so there's nothing to ignore.
     ├── .vimrc
     └── .config/
         ├── zsh/               # .zshrc, plugins.zsh, aliases.zsh, zsh_plugins.txt
+        ├── nix/nix.conf       # Nix: flakes + XDG base directories
         ├── bat/config
         ├── python/startup.py
         └── starship.toml

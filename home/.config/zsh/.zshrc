@@ -73,8 +73,6 @@ export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border --info=inline'
 # zoxide: smarter cd (use `z <dir>` to jump)
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
-export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
 # Activate the default user virtualenv if present (created once; see dotfiles README).
 # VIRTUAL_ENV_DISABLE_PROMPT stops activate from prefixing "(venv)" — Starship shows it instead.
@@ -98,3 +96,7 @@ fi
 # Machine-specific config (not tracked in dotfiles).
 [ -f "$ZDOTDIR/.zshrc.local" ] && source "$ZDOTDIR/.zshrc.local"
 [ -f ~/.secrets ] && source ~/.secrets
+
+# direnv — auto-load .envrc when cd'ing into a project (e.g. Nix flakes).
+# Must be last so it hooks into the final prompt.
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
