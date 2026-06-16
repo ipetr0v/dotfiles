@@ -100,3 +100,4 @@ fi
 # direnv — auto-load .envrc when cd'ing into a project (e.g. Nix flakes).
 # Must be last so it hooks into the final prompt.
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+

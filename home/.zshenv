@@ -45,3 +45,6 @@ skip_global_compinit=1
 _nix_sh="$XDG_STATE_HOME/nix/profile/etc/profile.d/nix.sh"
 [ -e "$_nix_sh" ] && . "$_nix_sh"
 unset _nix_sh
+
+# Rootless Docker
+[[ -S "$XDG_RUNTIME_DIR/docker.sock" ]] && export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"

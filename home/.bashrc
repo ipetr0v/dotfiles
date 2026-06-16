@@ -50,6 +50,9 @@ _nix_sh="$XDG_STATE_HOME/nix/profile/etc/profile.d/nix.sh"
 [ -e "$_nix_sh" ] && . "$_nix_sh"
 unset _nix_sh
 
+# Rootless Docker
+[ -S "$XDG_RUNTIME_DIR/docker.sock" ] && export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
+
 # Prepend user-installed binaries (pipx, pip --user, etc.) to PATH.
 # ~/.profile already does this for login shells on Debian, but only if the dir
 # exists then and only there — this guard makes it reliable without duplicating.

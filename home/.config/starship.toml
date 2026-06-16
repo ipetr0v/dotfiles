@@ -25,6 +25,7 @@ scan_timeout = 50
 # Show a visible prefix when the path is truncated.
 [directory]
 truncation_symbol = "…/"
+truncate_to_repo = false
 
 # Hide the Python module. A user-global venv is always active, so VIRTUAL_ENV is
 # always set and this module would otherwise render in every directory. Re-enable
@@ -35,6 +36,11 @@ disabled = true
 # Hide the gcloud module — it shows the active GCP account (your email) on the
 # corp server. Disable rather than reformat since we don't want it at all.
 [gcloud]
+disabled = true
+
+# Hide docker context — rootless Docker is the permanent setup, showing
+# "🐳 rootless" on every prompt is noise.
+[docker_context]
 disabled = true
 
 # Drop the " in " connector from username/hostname. It's there by default because

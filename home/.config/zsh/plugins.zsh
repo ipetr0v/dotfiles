@@ -1,5 +1,10 @@
 # ~/.config/zsh/plugins.zsh
 
+# OMZ cache dir — normally set by oh-my-zsh.sh, which antidote skips.
+# Plugins like docker write generated completions here.
+export ZSH_CACHE_DIR="$XDG_CACHE_HOME/ohmyzsh"
+mkdir -p "$ZSH_CACHE_DIR/completions"
+
 antidote_home="$XDG_DATA_HOME/antidote"
 
 # Bootstrap antidote on first run.
