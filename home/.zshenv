@@ -31,11 +31,15 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
 # Trailing colon = then fall back to the compiled-in system terminfo dirs.
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
 
+# Rust / Cargo (avoids ~/.cargo/ and ~/.rustup/)
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+
 # Prepend user-installed binaries (pipx, pip --user, etc.) to PATH.
 # zsh doesn't read ~/.profile, so we add it here. typeset -U keeps PATH unique
 # even though .zshenv runs for every shell (nested shells, scripts).
 typeset -U path PATH
-path=("$HOME/.local/bin" $path)
+path=("$HOME/.local/bin" "$CARGO_HOME/bin" $path)
 
 # Prevent /etc/zsh/zshrc from calling bare compinit (which would write
 # $ZDOTDIR/.zcompdump). We call compinit ourselves in .zshrc with the XDG path.

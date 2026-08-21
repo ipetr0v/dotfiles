@@ -36,6 +36,10 @@ export MANWIDTH=80    # cap man-page width on wide terminals
 # Trailing colon = then fall back to the compiled-in system terminfo dirs.
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
 
+# Rust / Cargo (avoids ~/.cargo/ and ~/.rustup/)
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+
 # GPG keyring
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
@@ -59,6 +63,10 @@ unset _nix_sh
 case ":$PATH:" in
     *":$HOME/.local/bin:"*) ;;
     *) PATH="$HOME/.local/bin:$PATH" ;;
+esac
+case ":$PATH:" in
+    *":$CARGO_HOME/bin:"*) ;;
+    *) PATH="$CARGO_HOME/bin:$PATH" ;;
 esac
 
 # Homebrew (Mac only).
