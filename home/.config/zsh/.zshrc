@@ -26,6 +26,18 @@ export VISUAL=vim
 export LESS='-FRX'    # quit if one screen, allow ANSI colors, keep output on exit
 export MANWIDTH=80    # cap man-page width on wide terminals
 
+# Some system-wide zshrc files set the next two, others don't, and we suppress
+# parts of that file anyway (see the compinit note in .zshenv). Set them
+# explicitly so behaviour is the same on every machine.
+
+# Pager for bare redirections with no command, e.g. `< file`.
+READNULLCMD=${PAGER:-less}
+
+# zsh ships `run-help` as an alias for `man`. The autoloaded function is
+# smarter: it handles builtins, keywords and `git commit`-style subcommands.
+(( $+aliases[run-help] )) && unalias run-help
+autoload -Uz run-help
+
 # Homebrew (Mac only).
 () {
     local brew_path
@@ -52,6 +64,11 @@ compinit -d "$ZSH_COMPDUMP"
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'   # case-insensitive matching
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # color files using LS_COLORS
 zstyle ':completion:*' menu no                           # let fzf-tab replace the menu
+
+# Let `sudo <tab>` find sbin binaries, which aren't on a normal user's PATH.
+# Set here rather than relying on the system-wide zshrc to do it.
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+    /usr/sbin /usr/bin /sbin /bin
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'          # preview on cd <tab>
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'  # preview on z <tab>
 

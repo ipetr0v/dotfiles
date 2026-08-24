@@ -41,8 +41,10 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 typeset -U path PATH
 path=("$HOME/.local/bin" "$CARGO_HOME/bin" $path)
 
-# Prevent /etc/zsh/zshrc from calling bare compinit (which would write
-# $ZDOTDIR/.zcompdump). We call compinit ourselves in .zshrc with the XDG path.
+# Prevent the system-wide zshrc from running its own compinit (which would write
+# a dump under $ZDOTDIR). We call compinit ourselves in .zshrc with the XDG path.
+# Plain (non-exported) var, ignored on systems that don't look for it. Some
+# distros use a different opt-out; set that in .zshenv.local (see bottom).
 skip_global_compinit=1
 
 # Nix package manager (uses XDG state dir when use-xdg-base-directories = true).
@@ -52,3 +54,9 @@ unset _nix_sh
 
 # Rootless Docker
 [[ -S "$XDG_RUNTIME_DIR/docker.sock" ]] && export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
+
+# Machine-specific environment (not tracked in dotfiles).
+# Must be here rather than in .zshrc.local for anything that has to be set
+# before the system-wide zshrc runs — the global order is
+#   /etc/zsh/zshenv -> ~/.zshenv -> /etc/zsh/zshrc -> $ZDOTDIR/.zshrc
+[ -f "$ZDOTDIR/.zshenv.local" ] && source "$ZDOTDIR/.zshenv.local"
