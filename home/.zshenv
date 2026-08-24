@@ -35,6 +35,16 @@ export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
+# Node / npm (avoids ~/.npm and ~/.npmrc).
+# The cache dir also holds _logs and _npx, so this one var relocates all of them.
+# npm creates its cache and userconfig dirs on demand. node does NOT create the
+# parent of NODE_REPL_HISTORY and silently drops history if it's missing — that
+# dir is made in .zshrc alongside the other history dirs, since .zshenv also runs
+# for scp/rsync and must never risk writing to stderr.
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/repl_history"
+
 # Prepend user-installed binaries (pipx, pip --user, etc.) to PATH.
 # zsh doesn't read ~/.profile, so we add it here. typeset -U keeps PATH unique
 # even though .zshenv runs for every shell (nested shells, scripts).

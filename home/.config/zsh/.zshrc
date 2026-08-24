@@ -1,7 +1,8 @@
 # ~/.config/zsh/.zshrc
 
-# History
-mkdir -p "$XDG_STATE_HOME/zsh" "$XDG_STATE_HOME/less"
+# History — zsh, less and node's REPL all keep history files under here.
+# None of the three create the parent dir themselves, so do it once up front.
+mkdir -p "$XDG_STATE_HOME/zsh" "$XDG_STATE_HOME/less" "$XDG_STATE_HOME/node"
 export HISTFILE="$XDG_STATE_HOME/zsh/history"
 HISTSIZE=50000
 SAVEHIST=50000
@@ -89,7 +90,6 @@ export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border --info=inline'
 
 # zoxide: smarter cd (use `z <dir>` to jump)
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
-
 
 # Activate the default user virtualenv if present (created once; see dotfiles README).
 # VIRTUAL_ENV_DISABLE_PROMPT stops activate from prefixing "(venv)" — Starship shows it instead.
