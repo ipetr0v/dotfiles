@@ -35,6 +35,9 @@ export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
+# Lean / Elan (avoids ~/.elan/)
+export ELAN_HOME="$XDG_DATA_HOME/elan"
+
 # Node / npm (avoids ~/.npm and ~/.npmrc).
 # The cache dir also holds _logs and _npx, so this one var relocates all of them.
 # npm creates its cache and userconfig dirs on demand. node does NOT create the
@@ -49,7 +52,7 @@ export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/repl_history"
 # zsh doesn't read ~/.profile, so we add it here. typeset -U keeps PATH unique
 # even though .zshenv runs for every shell (nested shells, scripts).
 typeset -U path PATH
-path=("$HOME/.local/bin" "$CARGO_HOME/bin" $path)
+path=("$HOME/.local/bin" "$CARGO_HOME/bin" "$ELAN_HOME/bin" $path)
 
 # Prevent the system-wide zshrc from running its own compinit (which would write
 # a dump under $ZDOTDIR). We call compinit ourselves in .zshrc with the XDG path.

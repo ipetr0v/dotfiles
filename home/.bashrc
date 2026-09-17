@@ -40,6 +40,9 @@ export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
+# Lean / Elan (avoids ~/.elan/)
+export ELAN_HOME="$XDG_DATA_HOME/elan"
+
 # Node / npm (avoids ~/.npm and ~/.npmrc).
 # The cache dir also holds _logs and _npx, so this one var relocates all of them.
 # npm creates both its cache and userconfig dirs on demand; node does not create
@@ -76,6 +79,10 @@ esac
 case ":$PATH:" in
     *":$CARGO_HOME/bin:"*) ;;
     *) PATH="$CARGO_HOME/bin:$PATH" ;;
+esac
+case ":$PATH:" in
+    *":$ELAN_HOME/bin:"*) ;;
+    *) PATH="$ELAN_HOME/bin:$PATH" ;;
 esac
 
 # Homebrew (Mac only).

@@ -80,7 +80,17 @@ python3 -m venv ~/.local/share/venv
 For per-project environments use a project-local `.venv` (and `direnv` to
 auto-activate) rather than this shared one.
 
-### 5. Per-machine config
+### 5. Lean 4 (optional)
+
+Both shells export `ELAN_HOME=~/.local/share/elan` and prepend `$ELAN_HOME/bin` to `PATH`.
+Install `elan` with `--no-modify-path` so it uses the XDG directory and leaves dotfiles untouched:
+
+```bash
+curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+    | ELAN_HOME=~/.local/share/elan sh -s -- -y --no-modify-path --default-toolchain leanprover/lean4:stable
+```
+
+### 6. Per-machine config
 
 These files are gitignored — create per machine as needed:
 
