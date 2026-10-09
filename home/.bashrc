@@ -51,6 +51,8 @@ export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/repl_history"
 [ -d "${NODE_REPL_HISTORY%/*}" ] || mkdir -p "${NODE_REPL_HISTORY%/*}"
+# Global installs (npm install -g) land here instead of /usr/local, so no sudo.
+export NPM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
 
 # GPG keyring
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
@@ -83,6 +85,10 @@ esac
 case ":$PATH:" in
     *":$ELAN_HOME/bin:"*) ;;
     *) PATH="$ELAN_HOME/bin:$PATH" ;;
+esac
+case ":$PATH:" in
+    *":$NPM_CONFIG_PREFIX/bin:"*) ;;
+    *) PATH="$NPM_CONFIG_PREFIX/bin:$PATH" ;;
 esac
 
 # Homebrew (Mac only).

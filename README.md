@@ -90,7 +90,17 @@ curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh
     | ELAN_HOME=~/.local/share/elan sh -s -- -y --no-modify-path --default-toolchain leanprover/lean4:stable
 ```
 
-### 6. Per-machine config
+### 6. Node.js (optional)
+
+Both shells point npm's cache, config, REPL history and global prefix at XDG
+dirs, so `npm install -g` writes to `~/.local/share/npm` (already on `PATH`)
+and never needs `sudo`:
+
+```bash
+sudo apt install -y nodejs npm
+```
+
+### 7. Per-machine config
 
 These files are gitignored — create per machine as needed:
 
@@ -99,7 +109,7 @@ These files are gitignored — create per machine as needed:
 | `~/.bashrc.local` | bash overrides |
 | `~/.config/zsh/.zshrc.local` | zsh overrides |
 | `~/.vimrc.local` | vim overrides (e.g. `set clipboard=unnamedplus` on desktop) |
-| `~/.gitconfig` | git identity (different for personal/work machines) |
+| `~/.config/git/config` | git identity (different for personal/work machines) |
 | `~/.secrets` | API tokens, etc. — sourced by both shells if present |
 
 ## Terminal: Ghostty

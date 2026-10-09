@@ -47,12 +47,14 @@ export ELAN_HOME="$XDG_DATA_HOME/elan"
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/repl_history"
+# Global installs (npm install -g) land here instead of /usr/local, so no sudo.
+export NPM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
 
 # Prepend user-installed binaries (pipx, pip --user, etc.) to PATH.
 # zsh doesn't read ~/.profile, so we add it here. typeset -U keeps PATH unique
 # even though .zshenv runs for every shell (nested shells, scripts).
 typeset -U path PATH
-path=("$HOME/.local/bin" "$CARGO_HOME/bin" "$ELAN_HOME/bin" $path)
+path=("$HOME/.local/bin" "$CARGO_HOME/bin" "$ELAN_HOME/bin" "$NPM_CONFIG_PREFIX/bin" $path)
 
 # Prevent the system-wide zshrc from running its own compinit (which would write
 # a dump under $ZDOTDIR). We call compinit ourselves in .zshrc with the XDG path.
