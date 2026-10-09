@@ -55,7 +55,11 @@ autoload -Uz run-help
 # before the cache dir is guaranteed to exist.
 [[ -d "${ZSH_COMPDUMP:h}" ]] || mkdir -p "${ZSH_COMPDUMP:h}"
 autoload -Uz compinit
-compinit -d "$ZSH_COMPDUMP"
+# This early run exists so plugins can call compdef (fzf-tab also needs it);
+# plugins.zsh runs compinit again once the plugins have extended $fpath. The
+# two runs see different $fpath, so they need separate dumps: sharing one makes
+# each invalidate the other and rebuild it on every shell (~2 s).
+compinit -d "$ZSH_COMPDUMP-early"
 
 [ -f "$ZDOTDIR/plugins.zsh" ] && source "$ZDOTDIR/plugins.zsh"
 [ -f "$ZDOTDIR/aliases.zsh" ] && source "$ZDOTDIR/aliases.zsh"
