@@ -38,6 +38,11 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # Lean / Elan (avoids ~/.elan/)
 export ELAN_HOME="$XDG_DATA_HOME/elan"
 
+# TeX Live (avoids ~/texmf and ~/.texliveYYYY/)
+export TEXMFHOME="$XDG_DATA_HOME/texmf"
+export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
+export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config"
+
 # Node / npm (avoids ~/.npm and ~/.npmrc).
 # The cache dir also holds _logs and _npx, so this one var relocates all of them.
 # npm creates its cache and userconfig dirs on demand. node does NOT create the

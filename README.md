@@ -100,7 +100,33 @@ and never needs `sudo`:
 sudo apt install -y nodejs npm
 ```
 
-### 7. Per-machine config
+### 7. LaTeX (optional)
+
+Both shells point TeX Live's user tree, cache and config (`TEXMFHOME`,
+`TEXMFVAR`, `TEXMFCONFIG`) at XDG dirs instead of `~/texmf` and `~/.texliveYYYY/`.
+
+**Ubuntu / Debian**
+
+```bash
+sudo apt install -y \
+    latexmk biber latexdiff chktex \
+    texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+    texlive-plain-generic texlive-publishers texlive-science \
+    texlive-bibtex-extra texlive-fonts-recommended texlive-fonts-extra \
+    texlive-pictures texlive-luatex texlive-xetex \
+    texlive-extra-utils texlive-font-utils texlive-lang-english
+```
+
+<details>
+<summary><b>macOS</b></summary>
+
+```bash
+brew install --cask mactex-no-gui
+```
+
+</details>
+
+### 8. Per-machine config
 
 These files are gitignored — create per machine as needed:
 
